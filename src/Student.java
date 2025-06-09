@@ -32,6 +32,4 @@ public class Student {
     public void setAdminNumber(int adminNumber) { 
         this.adminNumber = adminNumber;
     }
-
-    p
 }
