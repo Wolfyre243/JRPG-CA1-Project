@@ -7,6 +7,7 @@
  *
  * @author wolfy
  */
+
 public class Student {
     private String name;
 
