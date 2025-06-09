@@ -6,7 +6,14 @@ public class Book {
     private String category;
     private boolean avaliableForLoan; 
 
-    public Book (String bookTitle, String author, String ISBN, double price, String category, boolean avaliableForLoan) { 
+    public Book (
+        String bookTitle, 
+        String author, 
+        String ISBN, 
+        double price, 
+        String category, 
+        boolean avaliableForLoan
+    ) { 
         this.bookTitle = bookTitle; 
         this.author = author;
         this.ISBN = ISBN; 

@@ -16,8 +16,10 @@ public class StudentLibrary {
     public static void main(String[] args) {
         System.out.println("Hello World!");
 
-        // final Student john = new Student("John");
-        // System.out.println("New student: " + john.getName());
+        final int[] testArr = {1, 2, 3};
+
+        final Student john = new Student(2429123, "John");
+        System.out.println("New student: " + john.getName());
     }
     
 }
