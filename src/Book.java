@@ -6,7 +6,7 @@ public class Book {
     private String category;
     private boolean avaliableForLoan; 
 
-    public Book (
+    public Book(
         String bookTitle, 
         String author, 
         String ISBN, 

@@ -1,20 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author wolfy
- */
-
 public class Student {
     private int adminNumber;
     private String name;
+    private Book[] books;
 
-    public Student (int adminNumber, String name) {
+    public Student(int adminNumber, String name) {
         this.adminNumber = adminNumber;
         this.name = name;
+        this.books = new Book[50];
     }
 
     public String getName() {
@@ -31,5 +23,9 @@ public class Student {
 
     public void setAdminNumber(int adminNumber) { 
         this.adminNumber = adminNumber;
+    }
+
+    public Book[] getBorrowedBooks() {
+        return this.books;
     }
 }
