@@ -25,6 +25,113 @@ public class StudentLibrary {
     private static final StudentManagement studentManagement = new StudentManagement();
     private static final BookManagement bookManagement = new BookManagement();
 
+    private static void studentMenuCycle() {
+        final String menuTitle = "Mini Libary System - Student Management";
+        final String studentMenu = 
+            "Enter your option:\n" +
+            "\n" +
+            "1. Display all students\n" +
+            "2. Search student by name\n" +
+            "3. Add new student\n" +
+            "4. Display total number of students\n" +
+            "5. Exit\n" +
+            "\n";  
+
+
+        int menuChoice = 5;
+
+        do {
+            try {
+                final String option = JOptionPane.showInputDialog(null, studentMenu, menuTitle, JOptionPane.INFORMATION_MESSAGE);
+                if (option != null) {
+                    menuChoice = Integer.parseInt(option);
+                } else {
+                    menuChoice = 5; // If user pressed cancel, auto exit
+                }
+
+                if (menuChoice == 1) {
+                    // call display all students method
+                    studentManagement.displayStudents();
+                } else if (menuChoice == 2) {
+                    // call search student by name method
+                    final String searchName = JOptionPane.showInputDialog(null, "Enter the Student name to search:\n", "Input", JOptionPane.QUESTION_MESSAGE);
+                    if (searchName != null) {
+                        studentManagement.searchForStudent(searchName);
+                    }
+
+                } else if (menuChoice == 3) {
+                    // call add new student
+                } else if (menuChoice == 4) {
+                    // call display count method
+                    JOptionPane.showMessageDialog(null,
+                        "Total number of students: " + studentManagement.getStudentCount(), 
+                        "Total Number of Students", 
+                        JOptionPane.INFORMATION_MESSAGE
+                    );
+                } else if (menuChoice == 5) {
+                    // exit
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid option from the student menu.", menuTitle, JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (Exception e) {
+                if (e.getClass() == NumberFormatException.class) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid number.", menuTitle, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } while (menuChoice != 5);
+
+        return;
+    }
+
+    private static void bookMenuCycle() {
+        final String menuTitle = "Mini Libary System - Book Management";
+        final String bookMenu = 
+            "Enter your option:\n" +
+            "\n" +
+            "1. Display all books\n" +
+            "2. Search book by title\n" +
+            "3. Add new book\n" +
+            "4. Display total books cost\n" +
+            "5. Exit\n" +
+            "\n";
+
+
+        int menuChoice = 5;
+
+        do {
+            try {
+                final String option = JOptionPane.showInputDialog(null, bookMenu, menuTitle, JOptionPane.INFORMATION_MESSAGE);
+                if (option != null) {
+                    menuChoice = Integer.parseInt(option);
+                } else {
+                    menuChoice = 5; // If user pressed cancel, auto exit
+                }
+
+                if (menuChoice == 1) {
+                    // call display all books method
+                } else if (menuChoice == 2) {
+                    // call search book by title method
+                } else if (menuChoice == 3) {
+                    // call add new book
+                } else if (menuChoice == 4) {
+                    // call display book cost method
+                } else if (menuChoice == 5) {
+                    // exit
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid option from the book menu.", menuTitle, JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (Exception e) {
+                if (e.getClass() == NumberFormatException.class) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid number.", menuTitle, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } while (menuChoice != 5);
+
+        return;
+    }
+
     public static void main(String[] args) {
         // Initialise stores
         studentManagement.initialiseStudents(students);
@@ -41,20 +148,25 @@ public class StudentLibrary {
             "\n"
         ;
 
-        int userInput = 0;
+        int userInput = 3;
 
         // Main code
         do {
             try {
                 // TODO: [FIX] When user presses cancel, for some reason NumberFormatException is called => coalesce input value?
-                userInput = Integer.parseInt(JOptionPane.showInputDialog(null, mainMenu, menuTitle, JOptionPane.INFORMATION_MESSAGE));
-                
+                final String option = JOptionPane.showInputDialog(null, mainMenu, menuTitle, JOptionPane.INFORMATION_MESSAGE);
+                if (option != null) {
+                    userInput = Integer.parseInt(option);
+                } else {
+                    userInput = 3; // If user pressed cancel, auto exit
+                }
+
                 if (userInput == 1) {
                     // Call student management menu
-                    JOptionPane.showMessageDialog(null, "students menu", menuTitle, JOptionPane.INFORMATION_MESSAGE);
+                    studentMenuCycle();
                 } else if (userInput == 2) {
                     // Call book management menu
-                    JOptionPane.showMessageDialog(null, "books menu", menuTitle, JOptionPane.INFORMATION_MESSAGE);
+                    bookMenuCycle();
                 } else if (userInput == 3) {
                     JOptionPane.showMessageDialog(null, "Program terminated.\nThank you!", menuTitle, JOptionPane.INFORMATION_MESSAGE);
                 } else {

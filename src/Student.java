@@ -1,12 +1,13 @@
+import java.util.ArrayList;
+
 public class Student {
     private int adminNumber;
     private String name;
-    private Book[] books;
+    private ArrayList<Book> books;
 
     public Student(int adminNumber, String name) {
         this.adminNumber = adminNumber;
         this.name = name;
-        this.books = new Book[50];
     }
 
     public String getName() {
@@ -17,7 +18,7 @@ public class Student {
         this.name = name;
     }
 
-    public int adminNumber() { 
+    public int getAdminNumber() { 
         return this.adminNumber;
     }
 
@@ -25,7 +26,11 @@ public class Student {
         this.adminNumber = adminNumber;
     }
 
-    public Book[] getBorrowedBooks() {
+    public ArrayList<Book> getBorrowedBooks() {
         return this.books;
+    }
+
+    public int countBorrowedBooks() {
+        return this.books.size();
     }
 }
