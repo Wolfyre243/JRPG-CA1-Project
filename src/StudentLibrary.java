@@ -3,14 +3,14 @@ import javax.swing.JOptionPane;
 public class StudentLibrary {
     // Define initial student arr
     private static final Student[] students = {
-        new Student(2429123, "John Doe"),
-        new Student(2429124, "Jane Lim"),
-        new Student(2429125, "Mary Poh"),
-        new Student(2429126, "Chris Tan"),
-        new Student(2429127, "Kyle Ng"),
-        new Student(2429128, "Jack Neo"),
-        new Student(2429129, "Borris Toh"),
-        new Student(2429120, "Peter Pan")
+        new Student("p2429123", "John Doe"),
+        new Student("p2429124", "Jane Lim"),
+        new Student("p2429125", "Mary Poh"),
+        new Student("p2429126", "Chris Tan"),
+        new Student("p2429127", "Kyle Ng"),
+        new Student("p2429128", "Jack Neo"),
+        new Student("p2429129", "Borris Toh"),
+        new Student("p2429120", "Peter Pan")
     };
 
     // Define initial books arr
@@ -61,6 +61,7 @@ public class StudentLibrary {
 
                 } else if (menuChoice == 3) {
                     // call add new student
+                    studentManagement.addStudent();
                 } else if (menuChoice == 4) {
                     // call display count method
                     JOptionPane.showMessageDialog(null,

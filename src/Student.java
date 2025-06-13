@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class Student {
-    private int adminNumber;
+    private String adminNumber;
     private String name;
     private ArrayList<Book> books;
 
-    public Student(int adminNumber, String name) {
+    public Student(String adminNumber, String name) {
         this.adminNumber = adminNumber;
         this.name = name;
     }
@@ -18,11 +18,11 @@ public class Student {
         this.name = name;
     }
 
-    public int getAdminNumber() { 
+    public String getAdminNumber() { 
         return this.adminNumber;
     }
 
-    public void setAdminNumber(int adminNumber) { 
+    public void setAdminNumber(String adminNumber) { 
         this.adminNumber = adminNumber;
     }
 

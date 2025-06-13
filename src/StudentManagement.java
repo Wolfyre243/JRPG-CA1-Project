@@ -45,6 +45,31 @@ public class StudentManagement {
     }
 
     // TODO: Add student method
+    public void addStudent() {
+        final String dialogTitle = "Add new student";
+        final String studAdminNumber = JOptionPane.showInputDialog(
+            null, 
+            "Enter the new student's admin number:", dialogTitle, 
+            JOptionPane.QUESTION_MESSAGE
+        );
+
+        // If user pressed cancel, stop student creation
+        if (studAdminNumber == null) return;
+
+        final String studName = JOptionPane.showInputDialog(
+            null, 
+            "Enter the new student's name:", dialogTitle, 
+            JOptionPane.QUESTION_MESSAGE
+        );
+
+        // If user pressed cancel, stop student creation
+        if (studName == null) return;
+
+        studentStore.add(new Student(studAdminNumber, studName));
+
+        JOptionPane.showMessageDialog(null, "Student added successfully.", dialogTitle, JOptionPane.INFORMATION_MESSAGE);
+
+    }
 
     public int getStudentCount() {
         return this.studentStore.size();
