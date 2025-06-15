@@ -111,10 +111,16 @@ public class StudentLibrary {
 
                 if (menuChoice == 1) {
                     // call display all books method
+                    bookManagement.displayBooks();
                 } else if (menuChoice == 2) {
                     // call search book by title method
+                    final String searchTitle = JOptionPane.showInputDialog(null, "Enter the Book name to search:\n", "Input", JOptionPane.QUESTION_MESSAGE);
+                    if (searchTitle != null) {
+                        bookManagement.searchForBook(searchTitle);
+                    }
                 } else if (menuChoice == 3) {
                     // call add new book
+                    bookManagement.addBook();
                 } else if (menuChoice == 4) {
                     // call display book cost method
                 } else if (menuChoice == 5) {

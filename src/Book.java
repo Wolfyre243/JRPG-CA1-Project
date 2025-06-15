@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Book {
     private String bookTitle; 
     private String author; 
@@ -28,5 +30,40 @@ public class Book {
 
     public void setBookTitle(String bookTitle) {
         this.bookTitle = bookTitle;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public boolean getAvaliableForLoan() {
+        return avaliableForLoan;
+    }
+    public void setAvaliableForLoan(boolean avaliableForLoan) {
+        this.avaliableForLoan = avaliableForLoan;
     }
 }
