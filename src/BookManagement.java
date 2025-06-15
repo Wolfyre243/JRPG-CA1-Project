@@ -111,6 +111,14 @@ public class BookManagement {
 
     }
 
+    public double getTotalbookCost() {
+        double totalBookCost = 0.0;
+
+        for (int i = 0; i < bookStore.size(); i++) {
+        totalBookCost += bookStore.get(i).getPrice();
+        }
+        return totalBookCost;
+    }
 
 
 

@@ -123,6 +123,11 @@ public class StudentLibrary {
                     bookManagement.addBook();
                 } else if (menuChoice == 4) {
                     // call display book cost method
+                    JOptionPane.showMessageDialog(null,
+                        "Total book cost is $" + bookManagement.getTotalbookCost(), 
+                        "Total Book Cost", 
+                        JOptionPane.INFORMATION_MESSAGE
+                    );
                 } else if (menuChoice == 5) {
                     // exit
                 } else {
