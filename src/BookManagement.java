@@ -1,7 +1,7 @@
 import java.util.ArrayList;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-
 
 public class BookManagement {
     private ArrayList<Book> bookStore;
@@ -61,8 +61,20 @@ public class BookManagement {
             JOptionPane.QUESTION_MESSAGE
         );
 
-        // If user pressed cancel, stop student creation
         if (bookTitle == null) return;
+
+        final Pattern titlePattern = Pattern.compile("^[a-zA-Z0-9'\s]+$");
+        final Matcher titleMatcher = titlePattern.matcher(bookTitle);
+
+        if (!titleMatcher.find()) {
+            JOptionPane.showMessageDialog(
+                null, 
+                "Title can only contain letters, numbers and spaces.", 
+                "Input Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
 
         final String bookAuthor = JOptionPane.showInputDialog(
             null, 
@@ -70,9 +82,20 @@ public class BookManagement {
             JOptionPane.QUESTION_MESSAGE
         );
 
-        // If user pressed cancel, stop student creation
         if (bookAuthor == null) return;
 
+        final Pattern authorPattern = Pattern.compile("^[a-zA-Z\s]+$");
+        final Matcher authorMatcher = authorPattern.matcher(bookAuthor);
+
+        if (!authorMatcher.find()) {
+            JOptionPane.showMessageDialog(
+                null, 
+                "Author name can only contain letters and spaces.", 
+                "Input Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
 
         final String bookISBN = JOptionPane.showInputDialog(
             null, 
@@ -80,8 +103,20 @@ public class BookManagement {
             JOptionPane.QUESTION_MESSAGE
         );
 
-        // If user pressed cancel, stop student creation
         if (bookISBN == null) return;
+
+        final Pattern ISBNPattern = Pattern.compile("^[0-9]+$");
+        final Matcher ISBNMatcher = ISBNPattern.matcher(bookISBN);
+
+        if (!ISBNMatcher.find()) {
+            JOptionPane.showMessageDialog(
+                null, 
+                "ISBN can only contain numbers.", 
+                "Input Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
 
         final String bookPriceStr = JOptionPane.showInputDialog(
             null, 
@@ -89,7 +124,6 @@ public class BookManagement {
             JOptionPane.QUESTION_MESSAGE
         );
 
-        // If user pressed cancel, stop student creation
         if (bookPriceStr == null) return;
 
         double bookPrice = Double.parseDouble(bookPriceStr);
@@ -102,6 +136,19 @@ public class BookManagement {
 
         // If user pressed cancel, stop student creation
         if (bookCategory == null) return;
+
+        final Pattern categoryPattern = Pattern.compile("^[a-zA-Z\s]+$");
+        final Matcher categoryMatcher = categoryPattern.matcher(bookCategory);
+
+        if (!categoryMatcher.find()) {
+            JOptionPane.showMessageDialog(
+                null, 
+                "Category can only contain letters and spaces.", 
+                "Input Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
 
         boolean availableForLoan = true;
 
@@ -119,8 +166,6 @@ public class BookManagement {
         }
         return totalBookCost;
     }
-
-
 
     public void initialiseBooks(Book[] bookArr) {
         for (int i = 0; i < bookArr.length; i++) {
