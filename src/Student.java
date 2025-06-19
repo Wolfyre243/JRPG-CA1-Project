@@ -30,6 +30,14 @@ public class Student {
         return this.books;
     }
 
+    public void addBorrowedBook(Book book) {
+        this.books.add(book);
+    }
+
+    public void returnBorrowedBook(Book book) {
+        this.books.remove(book);
+    }
+
     public int countBorrowedBooks() {
         return this.books.size();
     }

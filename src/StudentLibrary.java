@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 public class StudentLibrary {
@@ -94,11 +96,12 @@ public class StudentLibrary {
             "2. Search book by title\n" +
             "3. Add new book\n" +
             "4. Display total books cost\n" +
-            "5. Exit\n" +
+            "5. Borrow/Return a Book\n" +
+            "6. Exit\n" +
             "\n";
 
 
-        int menuChoice = 5;
+        int menuChoice = 6;
 
         do {
             try {
@@ -106,7 +109,7 @@ public class StudentLibrary {
                 if (option != null) {
                     menuChoice = Integer.parseInt(option);
                 } else {
-                    menuChoice = 5; // If user pressed cancel, auto exit
+                    menuChoice = 6; // If user pressed cancel, auto exit
                 }
 
                 if (menuChoice == 1) {
@@ -129,6 +132,31 @@ public class StudentLibrary {
                         JOptionPane.INFORMATION_MESSAGE
                     );
                 } else if (menuChoice == 5) {
+                    final String inputAdminNo = JOptionPane.showInputDialog(
+                        null, 
+                        "What is your admin number?", "Login", 
+                        JOptionPane.QUESTION_MESSAGE
+                    );
+
+                    Student studentUser = null;
+                    ArrayList<Student> studentStore = studentManagement.getStudentStore();
+                    for (int i = 0; i < studentStore.size(); i++) {
+                        if (studentStore.get(i).getAdminNumber().equals(inputAdminNo)) {
+                            studentUser = studentStore.get(i);
+                            break;
+                        }
+                    }
+                    if (studentUser != null) {
+                        bookManagement.borrowOrReturnBook(studentUser);
+                    } else {
+                        JOptionPane.showMessageDialog(
+                            null, 
+                            "Student with admin number " + inputAdminNo + " not found", "Student Not Found", 
+                            JOptionPane.ERROR_MESSAGE
+                        );
+                    }
+
+                } else if (menuChoice == 6) {
                     // exit
                 } else {
                     JOptionPane.showMessageDialog(null, "Please enter a valid option from the book menu.", menuTitle, JOptionPane.ERROR_MESSAGE);
@@ -139,7 +167,7 @@ public class StudentLibrary {
                     JOptionPane.showMessageDialog(null, "Please enter a valid number.", menuTitle, JOptionPane.ERROR_MESSAGE);
                 }
             }
-        } while (menuChoice != 5);
+        } while (menuChoice != 6);
 
         return;
     }

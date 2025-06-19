@@ -10,6 +10,10 @@ public class StudentManagement {
         this.studentStore = new ArrayList<Student>();
     }
 
+    public ArrayList<Student> getStudentStore() {
+        return this.studentStore;
+    }
+
     public void displayStudents() {
         String displayMsg = "";
 
@@ -19,7 +23,6 @@ public class StudentManagement {
                     "Name: " + studentStore.get(i).getName() + "\n" +
                     "\n";
         }
-        ;
 
         JOptionPane.showMessageDialog(null, displayMsg, "All Students", JOptionPane.INFORMATION_MESSAGE);
     }
