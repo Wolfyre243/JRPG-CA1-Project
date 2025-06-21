@@ -19,7 +19,7 @@ public class BookManagement {
                 "Book " + (i + 1) + ":\n" +
                 "Book Title: " + bookStore.get(i).getBookTitle() + "\n" +
                 "Name: " + bookStore.get(i).getAuthor() + "\n" +
-                "Avaliability: " + bookStore.get(i).getAvaliableForLoan() + "\n" +
+                "Avaliability: " + bookStore.get(i).getAvailableForLoan() + "\n" +
                 "\n";
         };
 
@@ -35,7 +35,7 @@ public class BookManagement {
                     "Book: \n" +
                     "Book Title: " + this.bookStore.get(i).getBookTitle() + "\n" +
                     "Book Author: " + this.bookStore.get(i).getAuthor() + "\n" +
-                    "Avaliability: " + this.bookStore.get(i).getAvaliableForLoan();
+                    "Avaliability: " + this.bookStore.get(i).getAvailableForLoan();
 
                 JOptionPane.showMessageDialog(null, foundMsg, "Search Result", JOptionPane.INFORMATION_MESSAGE);
                 return;
@@ -169,9 +169,9 @@ public class BookManagement {
 
     public static void borrowBook(Student student, Book book) {
         // Check if the book is available for loan
-        if (book.getAvaliableForLoan()) {
+        if (book.getAvailableForLoan()) {
             student.addBorrowedBook(book);
-            book.setAvaliableForLoan(false); // Mark the book as not available for loan
+            book.setAvailableForLoan(false); // Mark the book as not available for loan
 
             JOptionPane.showMessageDialog(
                 null,
@@ -193,10 +193,21 @@ public class BookManagement {
 
     public static void returnBook(Student student, Book book) {
         // Check if the book is borrowed by the student
+        if (student.getBorrowedBooks().size() == 0) {
+            JOptionPane.showMessageDialog(
+                null,
+                "You have no books borrowed!",
+                "Not Found",
+                JOptionPane.ERROR_MESSAGE
+            );
+
+            return; 
+        }
+
         if (student.getBorrowedBooks().contains(book)) {
             student.returnBorrowedBook(book);
 
-            book.setAvaliableForLoan(true);
+            book.setAvailableForLoan(true);
 
             JOptionPane.showMessageDialog(
                 null,
@@ -209,7 +220,7 @@ public class BookManagement {
             // If the book is not borrowed by the student, display an error message
             JOptionPane.showMessageDialog(
                 null,
-                "You cannot return the book \'" + book.getBookTitle() + "\' as it was never borrowed by the student.",
+                "You cannot return the book \'" + book.getBookTitle() + "\' as it was never borrowed by you.",
                 "Book Not Borrowed",
                 JOptionPane.ERROR_MESSAGE
             );
@@ -245,28 +256,78 @@ public class BookManagement {
                     String displayMsg = "";
                     ArrayList<Book> studentBooks = studentUser.getBorrowedBooks();
 
-                    for (int i = 0; i < studentBooks.size(); i++) {
-                        displayMsg += 
-                            "Book " + (i + 1) + ":\n" +
-                            "Title: " + studentBooks.get(i).getBookTitle() + "\n" +
-                            "Author: " + studentBooks.get(i).getAuthor() + "\n" +
-                            "ISBN: " + studentBooks.get(i).getISBN() + "\n" +
-                            "\n";
+                    if (studentBooks.size() == 0) {
+                        displayMsg = "You have no borrowed books!";
+                    } else {
+                        for (int i = 0; i < studentBooks.size(); i++) {
+                            displayMsg += 
+                                "Book " + (i + 1) + ":\n" +
+                                "Title: " + studentBooks.get(i).getBookTitle() + "\n" +
+                                "Author: " + studentBooks.get(i).getAuthor() + "\n" +
+                                "ISBN: " + studentBooks.get(i).getISBN() + "\n" +
+                                "\n";
+                        }
                     }
 
                     JOptionPane.showMessageDialog(
                         null, 
                         displayMsg, menuTitle, 
-                        userChoice
+                        JOptionPane.INFORMATION_MESSAGE
                     );
 
                 } else if (userChoice == 2) {
                     // TODO: Ask for book ISBN and return the book
                     // Flaw: ISBN for books must then be unique in validation?
+                    Book bookToReturn = null;
+
+                    final String bookISBN = JOptionPane.showInputDialog(
+                        null,
+                        "ISBN of the book to return:", menuTitle, 
+                        JOptionPane.QUESTION_MESSAGE
+                    );
+
+                    for (int i = 0; i < this.bookStore.size(); i++) {
+                        if (this.bookStore.get(i).getISBN().equalsIgnoreCase(bookISBN)) {
+                            bookToReturn = this.bookStore.get(i);
+                        }
+                    }
+
+                    if (bookToReturn == null) {
+                        JOptionPane.showMessageDialog(
+                            null, 
+                            "No book with ISBN " + bookISBN + " found!", menuTitle, 
+                            JOptionPane.ERROR_MESSAGE
+                        );
+                    } else {
+                        returnBook(studentUser, bookToReturn);
+                    }
 
                 } else if (userChoice == 3) {
                     // TODO: Ask for book ISBN and borrow the book
                     // Flaw: same as return
+                    Book bookToBorrow = null;
+
+                    final String bookISBN = JOptionPane.showInputDialog(
+                        null,
+                        "ISBN of the book to borrow:", menuTitle, 
+                        JOptionPane.QUESTION_MESSAGE
+                    );
+
+                    for (int i = 0; i < this.bookStore.size(); i++) {
+                        if (this.bookStore.get(i).getISBN().equalsIgnoreCase(bookISBN)) {
+                            bookToBorrow = this.bookStore.get(i);
+                        }
+                    }
+
+                    if (bookToBorrow == null) {
+                        JOptionPane.showMessageDialog(
+                            null, 
+                            "No book with ISBN " + bookISBN + " found!", menuTitle, 
+                            JOptionPane.ERROR_MESSAGE
+                        );
+                    } else {
+                        borrowBook(studentUser, bookToBorrow);
+                    }
 
                 } else if (userChoice == 4) {
                     // exit

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Student {
     private String adminNumber;
     private String name;
-    private ArrayList<Book> books;
+    private ArrayList<Book> books = new ArrayList<Book>();
 
     public Student(String adminNumber, String name) {
         this.adminNumber = adminNumber;

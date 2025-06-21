@@ -4,7 +4,7 @@ public class Book {
     private String ISBN; 
     private double price; 
     private String category;
-    private boolean avaliableForLoan; 
+    private boolean availableForLoan; 
 
     public Book(
         String bookTitle, 
@@ -12,14 +12,14 @@ public class Book {
         String ISBN, 
         double price, 
         String category, 
-        boolean avaliableForLoan
+        boolean availableForLoan
     ) { 
         this.bookTitle = bookTitle; 
         this.author = author;
         this.ISBN = ISBN; 
         this.price = price; 
         this.category = category;
-        this.avaliableForLoan = avaliableForLoan;
+        this.availableForLoan = availableForLoan;
     }
 
     public String getBookTitle() {
@@ -58,10 +58,10 @@ public class Book {
         this.category = category;
     }
 
-    public boolean getAvaliableForLoan() {
-        return avaliableForLoan;
+    public boolean getAvailableForLoan() {
+        return availableForLoan;
     }
-    public void setAvaliableForLoan(boolean avaliableForLoan) {
-        this.avaliableForLoan = avaliableForLoan;
+    public void setAvailableForLoan(boolean availableForLoan) {
+        this.availableForLoan = availableForLoan;
     }
 }
