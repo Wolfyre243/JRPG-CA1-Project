@@ -46,6 +46,40 @@ public class StudentManagement {
         return;
     }
 
+    public void advancedSearchForStudent(String partialName) {
+        String displayMsg = "";
+        boolean found = false;
+        int count = 0;
+
+        for (int i = 0; i < studentStore.size(); i++) {
+            if (studentStore.get(i).getName().toLowerCase().contains(partialName.toLowerCase())) {
+                count++;
+                found = true;
+                displayMsg += "Student " + (count) + ":\n" +
+                "Admin #: " + studentStore.get(i).getAdminNumber() + "\n" +
+                "Name: " + studentStore.get(i).getName() + "\n" +
+                "\n";
+            }
+        }
+
+        if (found) {
+            JOptionPane.showMessageDialog(
+                null,
+                displayMsg,
+                "Search Results",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        } else {
+            JOptionPane.showMessageDialog(
+                null,
+                "No students found containing \"" + partialName + "\".",
+                "No Results",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+    
+
     // TODO: Add student method
     public void addStudent() {
         final String dialogTitle = "Add new student";

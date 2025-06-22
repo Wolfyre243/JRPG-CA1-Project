@@ -34,13 +34,14 @@ public class StudentLibrary {
             "\n" +
             "1. Display all students\n" +
             "2. Search student by name\n" +
-            "3. Add new student\n" +
-            "4. Display total number of students\n" +
-            "5. Exit\n" +
+            "3. Advanced Search \n" +
+            "4. Add new student\n" +
+            "5. Display total number of students\n" +
+            "6. Exit\n" +
             "\n";  
 
 
-        int menuChoice = 5;
+        int menuChoice = 6;
 
         do {
             try {
@@ -48,7 +49,7 @@ public class StudentLibrary {
                 if (option != null) {
                     menuChoice = Integer.parseInt(option);
                 } else {
-                    menuChoice = 5; // If user pressed cancel, auto exit
+                    menuChoice = 6; // If user pressed cancel, auto exit
                 }
 
                 if (menuChoice == 1) {
@@ -62,16 +63,29 @@ public class StudentLibrary {
                     }
 
                 } else if (menuChoice == 3) {
+                    final String partialName = JOptionPane.showInputDialog(
+                        null, 
+                        "Enter part of the student name:", 
+                        "Advanced Search", 
+                        JOptionPane.QUESTION_MESSAGE
+                        );
+                    if (partialName != null) {
+                        studentManagement.advancedSearchForStudent(partialName);
+                    }
+
+                } else if (menuChoice == 4) {
                     // call add new student
                     studentManagement.addStudent();
-                } else if (menuChoice == 4) {
+
+                } else if (menuChoice == 5) {
                     // call display count method
                     JOptionPane.showMessageDialog(null,
                         "Total number of students: " + studentManagement.getStudentCount(), 
                         "Total Number of Students", 
                         JOptionPane.INFORMATION_MESSAGE
                     );
-                } else if (menuChoice == 5) {
+
+                } else if (menuChoice == 6) {
                     // exit
                 } else {
                     JOptionPane.showMessageDialog(null, "Please enter a valid option from the student menu.", menuTitle, JOptionPane.ERROR_MESSAGE);
@@ -82,7 +96,7 @@ public class StudentLibrary {
                     JOptionPane.showMessageDialog(null, "Please enter a valid number.", menuTitle, JOptionPane.ERROR_MESSAGE);
                 }
             }
-        } while (menuChoice != 5);
+        } while (menuChoice != 6);
 
         return;
     }
