@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Book {
     private String bookTitle; 
     private String author; 
@@ -5,6 +7,7 @@ public class Book {
     private double price; 
     private String category;
     private boolean availableForLoan; 
+    private ArrayList<Student> reservationList = new ArrayList<Student>();
 
     public Book(
         String bookTitle, 
@@ -64,4 +67,17 @@ public class Book {
     public void setAvailableForLoan(boolean availableForLoan) {
         this.availableForLoan = availableForLoan;
     }
+
+    public ArrayList<Student> getReservationList() {
+        return this.reservationList;
+    }
+
+    public void addToReservationList(Student student) {
+        this.reservationList.add(student);
+    }
+
+    public void removeFromReservationList(Student student) {
+        this.reservationList.remove(student);
+    }
+
 }

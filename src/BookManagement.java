@@ -50,7 +50,6 @@ public class BookManagement {
         );
         return;
     }
-    // regular exp?
 
     // addBook
     public void addBook() {
@@ -184,7 +183,7 @@ public class BookManagement {
             // If the book is not available for loan, display an error message
             JOptionPane.showMessageDialog(
                 null,
-                "Sorry, you cannot borrow the book \'" + book.getBookTitle() + "\' at this time.",
+                "Sorry, you cannot borrow the book \'" + book.getBookTitle() + "\' at this time. Try reserving it instead.",
                 "Book Unavailable",
                 JOptionPane.ERROR_MESSAGE
             );
@@ -206,8 +205,15 @@ public class BookManagement {
 
         if (student.getBorrowedBooks().contains(book)) {
             student.returnBorrowedBook(book);
-
             book.setAvailableForLoan(true);
+
+            // If book has reservations
+            if (book.getReservationList().size() != 0) {
+                // Gets the next user to borrow the book
+                final Student reservedUser = book.getReservationList().get(0);
+                book.removeFromReservationList(reservedUser);
+                borrowBook(reservedUser, book);
+            }
 
             JOptionPane.showMessageDialog(
                 null,
@@ -237,10 +243,11 @@ public class BookManagement {
             "1. View Borrowed Books\n" +
             "2. Return a Book\n" +
             "3. Borrow a Book\n" +
-            "4. Exit\n" +
+            "4. Reserve a Book\n" +
+            "5. Exit\n" +
             "\n";
 
-        int userChoice = 4;
+        int userChoice = 5;
 
         do {
             try {
@@ -248,7 +255,7 @@ public class BookManagement {
                 if (option != null) {
                     userChoice = Integer.parseInt(option);
                 } else {
-                    userChoice = 4; // If user pressed cancel, auto exit
+                    userChoice = 5; // If user pressed cancel, auto exit
                 }
 
                 if (userChoice == 1) {
@@ -330,6 +337,58 @@ public class BookManagement {
                     }
 
                 } else if (userChoice == 4) {
+                    // TODO: Ask for book ISBN and reserve the book
+                    Book bookToReserve = null;
+
+                    final String bookISBN = JOptionPane.showInputDialog(
+                        null,
+                        "ISBN of the book to reserve:", menuTitle, 
+                        JOptionPane.QUESTION_MESSAGE
+                    );
+
+                    for (int i = 0; i < this.bookStore.size(); i++) {
+                        if (this.bookStore.get(i).getISBN().equalsIgnoreCase(bookISBN)) {
+                            bookToReserve = this.bookStore.get(i);
+                        }
+                    }
+
+                    if (bookToReserve == null) {
+                        JOptionPane.showMessageDialog(
+                            null, 
+                            "No book with ISBN " + bookISBN + " found!", menuTitle, 
+                            JOptionPane.ERROR_MESSAGE
+                        );
+                    } else {
+                        // If user had already reserved book
+                        if (bookToReserve.getReservationList().contains(studentUser)) {
+                            JOptionPane.showMessageDialog(
+                                null, 
+                                "You already have a pending reservation for this book!", menuTitle, 
+                                JOptionPane.ERROR_MESSAGE
+                            );
+                        } else if (studentUser.getBorrowedBooks().contains(bookToReserve)) {
+                            JOptionPane.showMessageDialog(
+                                null, 
+                                "You've already borrowed this book!", menuTitle, 
+                                JOptionPane.ERROR_MESSAGE
+                            );
+                        } else if (bookToReserve.getAvailableForLoan()) {
+                            JOptionPane.showMessageDialog(
+                                null, 
+                                "This book is available for loan, please borrow it instead.", menuTitle, 
+                                JOptionPane.ERROR_MESSAGE
+                            );
+                        } else {
+                            bookToReserve.addToReservationList(studentUser);
+                            JOptionPane.showMessageDialog(
+                                null, 
+                                "Successfully reserved book! (ISBN " + bookISBN + ")", menuTitle, 
+                                JOptionPane.ERROR_MESSAGE
+                            );
+                        }
+                    }
+
+                } else if (userChoice == 5) {
                     // exit
                 } else {
                     JOptionPane.showMessageDialog(null, "Please enter a valid option from the menu.", menuTitle, JOptionPane.ERROR_MESSAGE);
@@ -340,7 +399,7 @@ public class BookManagement {
                     JOptionPane.showMessageDialog(null, "Please enter a valid number.", menuTitle, JOptionPane.ERROR_MESSAGE);
                 }
             }
-        } while (userChoice != 4);
+        } while (userChoice != 5);
     }
 
     public void initialiseBooks(Book[] bookArr) {
