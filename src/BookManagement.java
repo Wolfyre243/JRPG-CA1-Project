@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class BookManagement {
     private ArrayList<Book> bookStore;
@@ -12,18 +14,21 @@ public class BookManagement {
 
     // displayBooks
     public void displayBooks() {
-        String displayMsg = "";
+        Object[][] rows = new Object[bookStore.size()][4];
+        Object[] cols = { "Book", "Book Title", "Name", "Availability" };
 
         for (int i = 0; i < bookStore.size(); i++) {
-            displayMsg +=
-                "Book " + (i + 1) + ":\n" +
-                "Book Title: " + bookStore.get(i).getBookTitle() + "\n" +
-                "Name: " + bookStore.get(i).getAuthor() + "\n" +
-                "Avaliability: " + bookStore.get(i).getAvailableForLoan() + "\n" +
-                "\n";
+            rows[i] = new Object[]{ 
+                i+1, 
+                bookStore.get(i).getBookTitle(),
+                bookStore.get(i).getAuthor(),
+                bookStore.get(i).getAvailableForLoan()
+            };
         };
 
-        JOptionPane.showMessageDialog(null, displayMsg, "All Books", JOptionPane.INFORMATION_MESSAGE);
+        JTable table = new JTable(rows, cols);
+
+        JOptionPane.showMessageDialog(null, new JScrollPane(table), "All Books", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // searchBookByTitle
