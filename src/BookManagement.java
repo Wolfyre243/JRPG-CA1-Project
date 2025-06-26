@@ -8,6 +8,8 @@ import javax.swing.JTable;
 public class BookManagement {
     private ArrayList<Book> bookStore;
 
+    private static SoundPlayer errorAudio = new SoundPlayer("error.wav");
+
      public BookManagement() {
         this.bookStore = new ArrayList<Book>();
     }
@@ -47,6 +49,8 @@ public class BookManagement {
         }
 
         // If not found
+        errorAudio.playSound();
+
         JOptionPane.showMessageDialog(null, 
             "Cannot find the book \"" + searchTerm + "\"",
             "Book Not Found", 
@@ -70,6 +74,7 @@ public class BookManagement {
         final Matcher titleMatcher = titlePattern.matcher(bookTitle);
 
         if (!titleMatcher.find()) {
+            errorAudio.playSound();
             JOptionPane.showMessageDialog(
                 null, 
                 "Title can only contain letters, numbers and spaces.", 
@@ -91,6 +96,7 @@ public class BookManagement {
         final Matcher authorMatcher = authorPattern.matcher(bookAuthor);
 
         if (!authorMatcher.find()) {
+            errorAudio.playSound();
             JOptionPane.showMessageDialog(
                 null, 
                 "Author name can only contain letters and spaces.", 
@@ -112,6 +118,7 @@ public class BookManagement {
         final Matcher ISBNMatcher = ISBNPattern.matcher(bookISBN);
 
         if (!ISBNMatcher.find()) {
+            errorAudio.playSound();
             JOptionPane.showMessageDialog(
                 null, 
                 "ISBN can only contain numbers.", 
@@ -144,6 +151,7 @@ public class BookManagement {
         final Matcher categoryMatcher = categoryPattern.matcher(bookCategory);
 
         if (!categoryMatcher.find()) {
+            errorAudio.playSound();
             JOptionPane.showMessageDialog(
                 null, 
                 "Category can only contain letters and spaces.", 
@@ -185,6 +193,7 @@ public class BookManagement {
 
         } else {
             // If the book is not available for loan, display an error message
+            errorAudio.playSound();
             JOptionPane.showMessageDialog(
                 null,
                 "Sorry, you cannot borrow the book \'" + book.getBookTitle() + "\' at this time. Try reserving it instead.",
@@ -197,6 +206,7 @@ public class BookManagement {
     public static void returnBook(Student student, Book book) {
         // Check if the book is borrowed by the student
         if (student.getBorrowedBooks().size() == 0) {
+            errorAudio.playSound();
             JOptionPane.showMessageDialog(
                 null,
                 "You have no books borrowed!",
@@ -228,6 +238,7 @@ public class BookManagement {
 
         } else {
             // If the book is not borrowed by the student, display an error message
+            errorAudio.playSound();
             JOptionPane.showMessageDialog(
                 null,
                 "You cannot return the book \'" + book.getBookTitle() + "\' as it was never borrowed by you.",
@@ -303,6 +314,7 @@ public class BookManagement {
                     }
 
                     if (bookToReturn == null) {
+                        errorAudio.playSound();
                         JOptionPane.showMessageDialog(
                             null, 
                             "No book with ISBN " + bookISBN + " found!", menuTitle, 
@@ -329,6 +341,7 @@ public class BookManagement {
                     }
 
                     if (bookToBorrow == null) {
+                        errorAudio.playSound();
                         JOptionPane.showMessageDialog(
                             null, 
                             "No book with ISBN " + bookISBN + " found!", menuTitle, 
@@ -354,6 +367,7 @@ public class BookManagement {
                     }
 
                     if (bookToReserve == null) {
+                        errorAudio.playSound();
                         JOptionPane.showMessageDialog(
                             null, 
                             "No book with ISBN " + bookISBN + " found!", menuTitle, 
@@ -362,18 +376,21 @@ public class BookManagement {
                     } else {
                         // If user had already reserved book
                         if (bookToReserve.getReservationList().contains(studentUser)) {
+                            errorAudio.playSound();
                             JOptionPane.showMessageDialog(
                                 null, 
                                 "You already have a pending reservation for this book!", menuTitle, 
                                 JOptionPane.ERROR_MESSAGE
                             );
                         } else if (studentUser.getBorrowedBooks().contains(bookToReserve)) {
+                            errorAudio.playSound();
                             JOptionPane.showMessageDialog(
                                 null, 
                                 "You've already borrowed this book!", menuTitle, 
                                 JOptionPane.ERROR_MESSAGE
                             );
                         } else if (bookToReserve.getAvailableForLoan()) {
+                            errorAudio.playSound();
                             JOptionPane.showMessageDialog(
                                 null, 
                                 "This book is available for loan, please borrow it instead.", menuTitle, 
@@ -384,7 +401,7 @@ public class BookManagement {
                             JOptionPane.showMessageDialog(
                                 null, 
                                 "Successfully reserved book! (ISBN " + bookISBN + ")", menuTitle, 
-                                JOptionPane.ERROR_MESSAGE
+                                JOptionPane.INFORMATION_MESSAGE
                             );
                         }
                     }
@@ -392,10 +409,12 @@ public class BookManagement {
                 } else if (userChoice == 5) {
                     // exit
                 } else {
+                    errorAudio.playSound();
                     JOptionPane.showMessageDialog(null, "Please enter a valid option from the menu.", menuTitle, JOptionPane.ERROR_MESSAGE);
                 }
 
             } catch (Exception e) {
+                errorAudio.playSound();
                 if (e.getClass() == NumberFormatException.class) {
                     JOptionPane.showMessageDialog(null, "Please enter a valid number.", menuTitle, JOptionPane.ERROR_MESSAGE);
                 }

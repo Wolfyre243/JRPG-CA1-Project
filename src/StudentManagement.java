@@ -8,6 +8,8 @@ import javax.swing.JTable;
 public class StudentManagement {
     private ArrayList<Student> studentStore;
 
+    private static SoundPlayer errorAudio = new SoundPlayer("error.wav");
+
     public StudentManagement() {
         this.studentStore = new ArrayList<Student>();
     }
@@ -45,6 +47,7 @@ public class StudentManagement {
         }
 
         // If not found
+        errorAudio.playSound();
         JOptionPane.showMessageDialog(null,
                 "Cannot find the student \"" + searchTerm + "\"!",
                 "Student Not Found",
@@ -53,29 +56,33 @@ public class StudentManagement {
     }
 
     public void advancedSearchForStudent(String partialName) {
-        String displayMsg = "";
+        Object[][] rows = new Object[studentStore.size()][4];
+        Object[] cols = { "Student", "Admin #", "Name", "Books Borrowed" };
+
         boolean found = false;
-        int count = 0;
 
         for (int i = 0; i < studentStore.size(); i++) {
             if (studentStore.get(i).getName().toLowerCase().contains(partialName.toLowerCase())) {
-                count++;
                 found = true;
-                displayMsg += "Student " + (count) + ":\n" +
-                "Admin #: " + studentStore.get(i).getAdminNumber() + "\n" +
-                "Name: " + studentStore.get(i).getName() + "\n" +
-                "\n";
+                rows[i] = new Object[]{ 
+                    i+1, 
+                    studentStore.get(i).getAdminNumber(),
+                    studentStore.get(i).getName(),
+                    studentStore.get(i).getBorrowedBooks().size()
+                };
             }
         }
 
         if (found) {
+            JTable table = new JTable(rows, cols);
             JOptionPane.showMessageDialog(
                 null,
-                displayMsg,
+                new JScrollPane(table),
                 "Search Results",
                 JOptionPane.INFORMATION_MESSAGE
             );
         } else {
+            errorAudio.playSound();
             JOptionPane.showMessageDialog(
                 null,
                 "No students found containing \"" + partialName + "\".",
@@ -98,6 +105,7 @@ public class StudentManagement {
 
         // Validation of studAdminNumber
         if (studAdminNumber.charAt(0) != 'p') {
+            errorAudio.playSound();
             JOptionPane.showMessageDialog(
                 null, 
                 "Admin Number must begin with a \'p\'.", 
@@ -106,6 +114,7 @@ public class StudentManagement {
             );
             return;
         } else if (studAdminNumber.length() > 8) {
+            errorAudio.playSound();
             JOptionPane.showMessageDialog(
                 null, 
                 "Admin Number must be exactly 8 characters.", 
@@ -117,6 +126,7 @@ public class StudentManagement {
 
         final int adminNo = Integer.parseInt(studAdminNumber.split("[p]")[1]);
         if (adminNo < 1300000 || adminNo > 2600000) {
+            errorAudio.playSound();
             JOptionPane.showMessageDialog(
                 null, 
                 "Invalid admin number.", 
@@ -139,6 +149,7 @@ public class StudentManagement {
         final Matcher matcher = namePattern.matcher(studName);
 
         if (!matcher.find()) {
+            errorAudio.playSound();
             JOptionPane.showMessageDialog(
                 null, 
                 "Name can only contain letters and spaces.", 

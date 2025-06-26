@@ -95,6 +95,7 @@ public class StudentLibrary {
                 }
 
             } catch (Exception e) {
+                errorAudio.playSound();
                 if (e.getClass() == NumberFormatException.class) {
                     JOptionPane.showMessageDialog(null, "Please enter a valid number.", menuTitle, JOptionPane.ERROR_MESSAGE);
                 }
@@ -181,6 +182,7 @@ public class StudentLibrary {
                 }
 
             } catch (Exception e) {
+                errorAudio.playSound();
                 if (e.getClass() == NumberFormatException.class) {
                     JOptionPane.showMessageDialog(null, "Please enter a valid number.", menuTitle, JOptionPane.ERROR_MESSAGE);
                 }
@@ -232,6 +234,7 @@ public class StudentLibrary {
                 }
 
             } catch (Exception e) {
+                errorAudio.playSound();
                 if (e.getClass() == NumberFormatException.class) {
                     JOptionPane.showMessageDialog(null, "Please enter a valid number.", menuTitle, JOptionPane.ERROR_MESSAGE);
                 }
