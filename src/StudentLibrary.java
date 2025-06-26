@@ -27,6 +27,8 @@ public class StudentLibrary {
     private static final StudentManagement studentManagement = new StudentManagement();
     private static final BookManagement bookManagement = new BookManagement();
 
+    private static SoundPlayer errorAudio = new SoundPlayer("error.wav");
+
     private static void studentMenuCycle() {
         final String menuTitle = "Mini Libary System - Student Management";
         final String studentMenu = 
@@ -88,6 +90,7 @@ public class StudentLibrary {
                 } else if (menuChoice == 6) {
                     // exit
                 } else {
+                    errorAudio.playSound();
                     JOptionPane.showMessageDialog(null, "Please enter a valid option from the student menu.", menuTitle, JOptionPane.ERROR_MESSAGE);
                 }
 
@@ -173,6 +176,7 @@ public class StudentLibrary {
                 } else if (menuChoice == 6) {
                     // exit
                 } else {
+                    errorAudio.playSound();
                     JOptionPane.showMessageDialog(null, "Please enter a valid option from the book menu.", menuTitle, JOptionPane.ERROR_MESSAGE);
                 }
 
@@ -207,7 +211,6 @@ public class StudentLibrary {
         // Main code
         do {
             try {
-                // TODO: [FIX] When user presses cancel, for some reason NumberFormatException is called => coalesce input value?
                 final String option = JOptionPane.showInputDialog(null, mainMenu, menuTitle, JOptionPane.INFORMATION_MESSAGE);
                 if (option != null) {
                     userInput = Integer.parseInt(option);
@@ -224,6 +227,7 @@ public class StudentLibrary {
                 } else if (userInput == 3) {
                     JOptionPane.showMessageDialog(null, "Program terminated.\nThank you!", menuTitle, JOptionPane.INFORMATION_MESSAGE);
                 } else {
+                    errorAudio.playSound();
                     JOptionPane.showMessageDialog(null, "Please enter a valid option from the menu.", menuTitle, JOptionPane.ERROR_MESSAGE);
                 }
 

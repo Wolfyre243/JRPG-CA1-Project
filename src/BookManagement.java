@@ -33,7 +33,6 @@ public class BookManagement {
 
     // searchBookByTitle
     public void searchForBook(String searchTerm) {
-        // TODO: Improve searching?
         for (int i = 0; i < this.bookStore.size(); i++) {
             if (this.bookStore.get(i).getBookTitle().equalsIgnoreCase(searchTerm)) {
                 final String foundMsg = 
@@ -288,7 +287,6 @@ public class BookManagement {
                     );
 
                 } else if (userChoice == 2) {
-                    // TODO: Ask for book ISBN and return the book
                     // Flaw: ISBN for books must then be unique in validation?
                     Book bookToReturn = null;
 
@@ -315,7 +313,6 @@ public class BookManagement {
                     }
 
                 } else if (userChoice == 3) {
-                    // TODO: Ask for book ISBN and borrow the book
                     // Flaw: same as return
                     Book bookToBorrow = null;
 
@@ -342,7 +339,6 @@ public class BookManagement {
                     }
 
                 } else if (userChoice == 4) {
-                    // TODO: Ask for book ISBN and reserve the book
                     Book bookToReserve = null;
 
                     final String bookISBN = JOptionPane.showInputDialog(

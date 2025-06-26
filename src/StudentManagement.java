@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class StudentManagement {
     private ArrayList<Student> studentStore;
@@ -15,20 +17,24 @@ public class StudentManagement {
     }
 
     public void displayStudents() {
-        String displayMsg = "";
+        Object[][] rows = new Object[studentStore.size()][4];
+        Object[] cols = { "Student", "Admin #", "Name", "Books Borrowed" };
 
         for (int i = 0; i < studentStore.size(); i++) {
-            displayMsg += "Student " + (i + 1) + ":\n" +
-                    "Admin #: " + studentStore.get(i).getAdminNumber() + "\n" +
-                    "Name: " + studentStore.get(i).getName() + "\n" +
-                    "\n";
+            rows[i] = new Object[]{ 
+                i+1, 
+                studentStore.get(i).getAdminNumber(),
+                studentStore.get(i).getName(),
+                studentStore.get(i).getBorrowedBooks().size()
+            };
         }
 
-        JOptionPane.showMessageDialog(null, displayMsg, "All Students", JOptionPane.INFORMATION_MESSAGE);
+        JTable table = new JTable(rows, cols);
+
+        JOptionPane.showMessageDialog(null, new JScrollPane(table), "All Students", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void searchForStudent(String searchTerm) {
-        // TODO: Improve searching?
         for (int i = 0; i < this.studentStore.size(); i++) {
             if (this.studentStore.get(i).getName().equalsIgnoreCase(searchTerm)) {
                 final String foundMsg = "Admin #: " + this.studentStore.get(i).getAdminNumber() + "\n" +
@@ -79,8 +85,6 @@ public class StudentManagement {
         }
     }
     
-
-    // TODO: Add student method
     public void addStudent() {
         final String dialogTitle = "Add new student";
         final String studAdminNumber = JOptionPane.showInputDialog(
