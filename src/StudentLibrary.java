@@ -1,3 +1,10 @@
+/**
+ * Admin Number: 2429634 & 2424093
+ * Class: DIT/FT/2A/01
+ * @author Junkai & Jayden
+ */
+
+
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;

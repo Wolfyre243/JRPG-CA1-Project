@@ -1,3 +1,9 @@
+/**
+ * Admin Number: 2424093
+ * Class: DIT/FT/2A/01
+ * @author Jayden
+ */
+
 import java.util.ArrayList;
 
 public class Book {

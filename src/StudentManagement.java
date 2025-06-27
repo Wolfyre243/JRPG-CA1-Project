@@ -1,3 +1,10 @@
+/**
+ * Admin Number: 2429634
+ * Class: DIT/FT/2A/01
+ * @author Junkai
+ */
+
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

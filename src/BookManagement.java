@@ -1,3 +1,9 @@
+/**
+ * Admin Number: 2424093
+ * Class: DIT/FT/2A/01
+ * @author Jayden
+ */
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,9 +12,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 public class BookManagement {
-    private ArrayList<Book> bookStore;
+    final private ArrayList<Book> bookStore;
 
-    private static SoundPlayer errorAudio = new SoundPlayer("error.wav");
+    final private static SoundPlayer errorAudio = new SoundPlayer("error.wav");
 
      public BookManagement() {
         this.bookStore = new ArrayList<Book>();
